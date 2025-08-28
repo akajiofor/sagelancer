@@ -258,7 +258,7 @@ export default function ProcessPage() {
 
   const renderNextStepIcon = (iconName: string) => {
     const IconComponent = getIconComponent(iconName)
-    return <IconComponent className="w-6 h-6 text-white" />
+    return IconComponent ? <IconComponent className="w-6 h-6 text-white" /> : null
   }
 
   return (
@@ -372,7 +372,10 @@ export default function ProcessPage() {
                           <div
                             className={`w-16 h-16 bg-gradient-to-r ${processSteps[currentDemoStep].color} rounded-2xl flex items-center justify-center shadow-lg`}
                           >
-                            {getIconComponent(processSteps[currentDemoStep].icon)({ className: "w-8 h-8 text-white" })}
+                            {(() => {
+                          const IconComponent = getIconComponent(processSteps[currentDemoStep].icon)
+                          return IconComponent ? <IconComponent className="w-8 h-8 text-white" /> : null
+                        })()}
                           </div>
                           <div>
                             <h4 className="text-2xl font-bold">{processSteps[currentDemoStep].title}</h4>
@@ -600,7 +603,10 @@ export default function ProcessPage() {
                       : "bg-white text-gray-600 border border-gray-200 hover:border-[#2CA35B] hover:text-[#2CA35B]"
                   }`}
                 >
-                  {icons[step.icon]({ className: "w-5 h-5" })}
+                  {(() => {
+                    const IconComponent = icons[step.icon as keyof typeof icons]
+                    return IconComponent ? <IconComponent className="w-5 h-5" /> : null
+                  })()}
                   <span className="hidden sm:inline">{step.title}</span>
                   <span className="sm:hidden">{index + 1}</span>
                 </button>
@@ -623,7 +629,10 @@ export default function ProcessPage() {
                       <div
                         className={`w-16 h-16 bg-gradient-to-r ${processSteps[activeStep].color} rounded-2xl flex items-center justify-center shadow-lg`}
                       >
-                        {getIconComponent(processSteps[activeStep].icon)({ className: "w-8 h-8 text-white" })}
+                        {(() => {
+                          const IconComponent = getIconComponent(processSteps[activeStep].icon)
+                          return IconComponent ? <IconComponent className="w-8 h-8 text-white" /> : null
+                        })()}
                       </div>
                       <div>
                         <h2 className="text-3xl font-bold text-gray-900 font-space-grotesk">
@@ -698,7 +707,10 @@ export default function ProcessPage() {
                           <div
                             className={`w-10 h-10 bg-gradient-to-r ${processSteps[activeStep + 1].color} rounded-xl flex items-center justify-center`}
                           >
-                            {getIconComponent(processSteps[activeStep + 1].icon)({ className: "w-6 h-6 text-white" })}
+                            {(() => {
+                              const IconComponent = getIconComponent(processSteps[activeStep + 1].icon)
+                              return IconComponent ? <IconComponent className="w-6 h-6 text-white" /> : null
+                            })()}
                           </div>
                           <div>
                             <p className="font-semibold">{processSteps[activeStep + 1].title}</p>
@@ -708,7 +720,10 @@ export default function ProcessPage() {
                       ) : (
                         <div className="text-center">
                           <div className="w-12 h-12 bg-gradient-to-r from-[#2CA35B] to-[#1E6F5C] rounded-full flex items-center justify-center mx-auto mb-3">
-                            {getIconComponent("Award")({ className: "w-6 h-6 text-white" })}
+                            {(() => {
+                              const IconComponent = getIconComponent("Award")
+                              return IconComponent ? <IconComponent className="w-6 h-6 text-white" /> : null
+                            })()}
                           </div>
                           <p className="font-semibold text-[#2CA35B]">Project Complete!</p>
                           <p className="text-sm text-gray-600">Ongoing support and maintenance</p>
@@ -756,7 +771,10 @@ export default function ProcessPage() {
                 <div
                   className={`w-16 h-16 bg-gradient-to-r ${benefit.color} rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform`}
                 >
-                  {getIconComponent(benefit.icon)({ className: "w-8 h-8 text-white" })}
+                  {(() => {
+                    const IconComponent = getIconComponent(benefit.icon)
+                    return IconComponent ? <IconComponent className="w-8 h-8 text-white" /> : null
+                  })()}
                 </div>
                 <h3 className="text-xl font-bold mb-4 group-hover:text-gray-900 transition-colors">{benefit.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
@@ -800,7 +818,10 @@ export default function ProcessPage() {
                 >
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 bg-[#2CA35B]/10 rounded-xl flex items-center justify-center">
-                      {getIconComponent(faq.icon)({ className: "w-5 h-5 text-[#2CA35B]" })}
+                      {(() => {
+                        const IconComponent = getIconComponent(faq.icon)
+                        return IconComponent ? <IconComponent className="w-5 h-5 text-[#2CA35B]" /> : null
+                      })()}
                     </div>
                     <span className="font-bold text-lg text-gray-900">{faq.question}</span>
                   </div>
