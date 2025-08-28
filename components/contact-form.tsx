@@ -1,8 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import { motion } from "framer-motion"
-import { useActionState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -17,7 +16,8 @@ interface ContactFormProps {
 }
 
 export default function ContactForm({ variant = "default", className = "" }: ContactFormProps) {
-  const [state, action, isPending] = useActionState(submitContactForm, null)
+  const [state, setState] = useState<{ success: boolean; message: string } | null>(null)
+  const [isPending, startTransition] = useTransition()
   const [formData, setFormData] = useState({
     service: "",
     budget: "",
@@ -25,7 +25,17 @@ export default function ContactForm({ variant = "default", className = "" }: Con
 
   const handleSubmit = async (formData: FormData) => {
     trackFormSubmission("contact_form")
-    await action(formData)
+    startTransition(async () => {
+      try {
+        const result = await submitContactForm(formData)
+        setState(result)
+      } catch (error) {
+        setState({
+          success: false,
+          message: "Something went wrong. Please try again.",
+        })
+      }
+    })
   }
 
   const isModal = variant === "modal"

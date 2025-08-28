@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useTransition } from "react"
 import { motion, useInView } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -22,12 +22,12 @@ import Link from "next/link"
 import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { subscribeNewsletter } from "@/app/actions/contact"
-import { useActionState } from "react"
 
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState("All")
   const [searchQuery, setSearchQuery] = useState("")
-  const [newsletterState, newsletterAction, isNewsletterPending] = useActionState(subscribeNewsletter, null)
+  const [newsletterState, setNewsletterState] = useState<{ success: boolean; message: string } | null>(null)
+  const [isNewsletterPending, startNewsletterTransition] = useTransition()
   const heroRef = useRef(null)
   const isHeroInView = useInView(heroRef, { once: true })
 
@@ -138,6 +138,21 @@ export default function BlogPage() {
     "No-Code": Smartphone,
     Business: TrendingUp,
     Trends: Lightbulb,
+  }
+
+  const handleNewsletterSubmit = async (formData: FormData) => {
+    startNewsletterTransition(async () => {
+      try {
+        const email = formData.get("email") as string
+        const result = await subscribeNewsletter(email)
+        setNewsletterState(result)
+      } catch (error) {
+        setNewsletterState({
+          success: false,
+          message: "Something went wrong. Please try again.",
+        })
+      }
+    })
   }
 
   return (
@@ -392,7 +407,7 @@ export default function BlogPage() {
                     <p className="font-semibold">Thanks for subscribing!</p>
                   </div>
                 ) : (
-                  <form action={newsletterAction} className="space-y-4">
+                  <form action={handleNewsletterSubmit} className="space-y-4">
                     <Input
                       name="email"
                       type="email"
