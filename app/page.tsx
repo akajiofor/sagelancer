@@ -387,8 +387,8 @@ export default function SagelancerLanding() {
                       ],
                     }}
                     transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                    className="absolute inset-0 opacity-10 blur-3xl"
-                    style={{ width: "120%", height: "120%", left: "-10%", top: "-10%" }}
+                    className="absolute inset-0 opacity-5 blur-3xl -z-10"
+                    style={{ width: "100%", height: "100%" }}
                   />
 
                   <motion.h1
