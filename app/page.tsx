@@ -169,13 +169,7 @@ export default function SagelancerLanding() {
     },
   ]
 
-  const trustLogos = [
-    { name: "TechCrunch", width: 120 },
-    { name: "Forbes", width: 100 },
-    { name: "Product Hunt", width: 130 },
-    { name: "Y Combinator", width: 140 },
-    { name: "AngelList", width: 110 },
-  ]
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -223,11 +217,11 @@ export default function SagelancerLanding() {
             repeat: Number.POSITIVE_INFINITY,
             ease: "easeInOut",
           }}
-          className="absolute top-32 left-20 z-20"
+          className="absolute top-16 md:top-32 left-4 md:left-20 z-20"
         >
           <div className="relative">
-            <Image src="/figma-logo.png" alt="Figma" width={60} height={60} className="drop-shadow-lg" />
-            <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-purple-500 rounded-full animate-pulse"></div>
+            <Image src="/figma-logo.png" alt="Figma" width={30} height={30} className="md:w-[60px] md:h-[60px] drop-shadow-lg" />
+            <div className="absolute -bottom-1 -right-1 w-2 h-2 md:w-4 md:h-4 bg-purple-500 rounded-full animate-pulse"></div>
           </div>
         </motion.div>
 
@@ -242,11 +236,11 @@ export default function SagelancerLanding() {
             ease: "easeInOut",
             delay: 1,
           }}
-          className="absolute top-48 left-32 z-20"
+          className="absolute top-24 md:top-48 left-12 md:left-32 z-20"
         >
           <div className="relative">
-            <Image src="/photoshop-logo.png" alt="Photoshop" width={50} height={50} className="drop-shadow-lg" />
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full animate-ping"></div>
+            <Image src="/photoshop-logo.png" alt="Photoshop" width={25} height={25} className="md:w-[50px] md:h-[50px] drop-shadow-lg" />
+            <div className="absolute -top-1 -right-1 w-1.5 h-1.5 md:w-3 md:h-3 bg-blue-500 rounded-full animate-ping"></div>
           </div>
         </motion.div>
 
@@ -262,11 +256,11 @@ export default function SagelancerLanding() {
             ease: "easeInOut",
             delay: 2,
           }}
-          className="absolute top-40 right-32 z-20"
+          className="absolute top-20 md:top-40 right-4 md:right-32 z-20"
         >
           <div className="relative">
-            <Image src="/webflow-logo.png" alt="Webflow" width={55} height={55} className="drop-shadow-lg" />
-            <div className="absolute -bottom-1 -left-1 w-3 h-3 bg-blue-400 rounded-full animate-bounce"></div>
+            <Image src="/webflow-logo.png" alt="Webflow" width={30} height={30} className="md:w-[55px] md:h-[55px] drop-shadow-lg" />
+            <div className="absolute -bottom-1 -left-1 w-1.5 h-1.5 md:w-3 md:h-3 bg-blue-400 rounded-full animate-bounce"></div>
           </div>
         </motion.div>
 
@@ -281,11 +275,11 @@ export default function SagelancerLanding() {
             ease: "easeInOut",
             delay: 0.5,
           }}
-          className="absolute top-56 right-20 z-20"
+          className="absolute top-32 md:top-56 right-2 md:right-20 z-20"
         >
           <div className="relative">
-            <Image src="/flutterflow-logo.png" alt="FlutterFlow" width={48} height={48} className="drop-shadow-lg" />
-            <div className="absolute -top-2 -right-2 w-4 h-4 bg-green-500 rounded-full animate-pulse"></div>
+            <Image src="/flutterflow-logo.png" alt="FlutterFlow" width={25} height={25} className="md:w-[48px] md:h-[48px] drop-shadow-lg" />
+            <div className="absolute -top-1 -right-1 w-2 h-2 md:w-4 md:h-4 bg-green-500 rounded-full animate-pulse"></div>
           </div>
         </motion.div>
 
@@ -301,11 +295,11 @@ export default function SagelancerLanding() {
             ease: "easeInOut",
             delay: 3,
           }}
-          className="absolute bottom-40 left-24 z-20"
+          className="absolute bottom-24 md:bottom-40 left-8 md:left-24 z-20"
         >
           <div className="relative">
-            <Image src="/firebase-logo.png" alt="Firebase" width={52} height={52} className="drop-shadow-lg" />
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-orange-500 rounded-full animate-ping"></div>
+            <Image src="/firebase-logo.png" alt="Firebase" width={30} height={30} className="md:w-[52px] md:h-[52px] drop-shadow-lg" />
+            <div className="absolute -top-1 -right-1 w-1.5 h-1.5 md:w-3 md:h-3 bg-orange-500 rounded-full animate-ping"></div>
           </div>
         </motion.div>
 
@@ -313,8 +307,9 @@ export default function SagelancerLanding() {
         <svg className="absolute inset-0 w-full h-full z-10" style={{ pointerEvents: "none" }}>
           <motion.path
             d="M 200 300 Q 400 200 600 350"
-            stroke="rgba(44, 163, 91, 0.3)"
-            strokeWidth="2"
+            stroke="rgba(44, 163, 91, 0.1)"
+            strokeWidth="1"
+            className="md:stroke-[rgba(44,163,91,0.3)] md:stroke-[2px]"
             fill="none"
             strokeDasharray="10,5"
             initial={{ pathLength: 0 }}
@@ -323,8 +318,9 @@ export default function SagelancerLanding() {
           />
           <motion.path
             d="M 600 350 Q 800 400 1000 300"
-            stroke="rgba(44, 163, 91, 0.3)"
-            strokeWidth="2"
+            stroke="rgba(44, 163, 91, 0.1)"
+            strokeWidth="1"
+            className="md:stroke-[rgba(44,163,91,0.3)] md:stroke-[2px]"
             fill="none"
             strokeDasharray="10,5"
             initial={{ pathLength: 0 }}
@@ -418,7 +414,7 @@ export default function SagelancerLanding() {
                       repeat: Number.POSITIVE_INFINITY,
                       ease: "easeInOut",
                     }}
-                    className="absolute -top-8 -left-16 bg-white/80 backdrop-blur-sm rounded-lg px-3 py-2 text-sm font-mono text-gray-700 shadow-lg"
+                    className="absolute -top-2 md:-top-8 -left-4 md:-left-16 bg-white/80 backdrop-blur-sm rounded-lg px-1.5 md:px-3 py-0.5 md:py-2 text-xs md:text-sm font-mono text-gray-700 shadow-lg"
                   >
                     {"<FlutterFlow />"}
                   </motion.div>
@@ -434,7 +430,7 @@ export default function SagelancerLanding() {
                       ease: "easeInOut",
                       delay: 1,
                     }}
-                    className="absolute -bottom-6 -right-20 bg-white/80 backdrop-blur-sm rounded-lg px-3 py-2 text-sm font-mono text-gray-700 shadow-lg"
+                    className="absolute -bottom-2 md:-bottom-6 -right-4 md:-right-20 bg-white/80 backdrop-blur-sm rounded-lg px-1.5 md:px-3 py-0.5 md:py-2 text-xs md:text-sm font-mono text-gray-700 shadow-lg"
                   >
                     {"{ noCode: true }"}
                   </motion.div>
@@ -532,6 +528,7 @@ export default function SagelancerLanding() {
                     variant="outline"
                     size="lg"
                     className="px-10 py-6 text-xl rounded-2xl border-2 border-gray-300 hover:border-[#2CA35B] hover:text-[#2CA35B] hover:bg-[#2CA35B]/5 transition-all backdrop-blur-sm"
+                    onClick={() => window.location.href = '/portfolio'}
                   >
                     <motion.div
                       animate={{ scale: [1, 1.2, 1] }}
@@ -686,21 +683,7 @@ export default function SagelancerLanding() {
         </div>
       </section>
 
-      {/* Trust Logos */}
-      <section className="py-12 bg-gray-50/50">
-        <div className="section-container">
-          <p className="text-center text-gray-500 mb-8 font-medium">Featured in</p>
-          <div className="flex items-center justify-center space-x-8 md:space-x-12 opacity-60">
-            {trustLogos.map((logo, index) => (
-              <div key={index} className="h-8 bg-gray-300 rounded" style={{ width: logo.width }}>
-                <div className="w-full h-full bg-gradient-to-r from-gray-400 to-gray-300 rounded flex items-center justify-center">
-                  <span className="text-xs font-semibold text-gray-600">{logo.name}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+
 
       {/* Services Section */}
       <section id="services" className="py-20 lg:py-32">
