@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { Facebook, Instagram, Twitter } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -18,15 +19,30 @@ export default function Footer() {
               reality.
             </p>
             <div className="flex space-x-4">
-              <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#2CA35B] transition-colors cursor-pointer">
-                <span className="text-sm font-bold">T</span>
-              </div>
-              <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#2CA35B] transition-colors cursor-pointer">
-                <span className="text-sm font-bold">L</span>
-              </div>
-              <div className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#2CA35B] transition-colors cursor-pointer">
-                <span className="text-sm font-bold">I</span>
-              </div>
+              <Link 
+                href="https://x.com/sagelancer" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#2CA35B] transition-colors cursor-pointer"
+              >
+                <Twitter className="w-5 h-5" />
+              </Link>
+              <Link 
+                href="https://www.facebook.com/SagelancerHub" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#2CA35B] transition-colors cursor-pointer"
+              >
+                <Facebook className="w-5 h-5" />
+              </Link>
+              <Link 
+                href="https://www.instagram.com/sagelancer/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#2CA35B] transition-colors cursor-pointer"
+              >
+                <Instagram className="w-5 h-5" />
+              </Link>
             </div>
           </div>
 
@@ -54,7 +70,6 @@ export default function Footer() {
                 Process
               </Link>
               <li className="hover:text-white transition-colors cursor-pointer">Blog</li>
-              <li className="hover:text-white transition-colors cursor-pointer">Contact</li>
             </ul>
           </div>
 
@@ -62,8 +77,8 @@ export default function Footer() {
             <h4 className="font-bold mb-6 text-lg">Contact</h4>
             <ul className="space-y-3 text-gray-400">
               <li>hello@sagelancer.com</li>
-              <li>+1 (555) 123-4567</li>
-              <li>San Francisco, CA</li>
+              <li>+234 9069162012</li>
+              <li>Abuja, Nigeria</li>
               <li className="pt-2">
                 <span className="text-[#2CA35B] font-semibold">24/7 Support Available</span>
               </li>
@@ -73,16 +88,13 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between">
           <p className="text-gray-400 mb-4 md:mb-0">&copy; 2024 Sagelancer. All rights reserved.</p>
-          <div className="flex space-x-6 text-gray-400 text-sm">
-            <a href="#" className="hover:text-white transition-colors">
+          <div className="flex space-x-6 text-sm text-gray-400">
+            <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
+            </Link>
+            <Link href="/terms" className="hover:text-white transition-colors">
               Terms of Service
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Cookie Policy
-            </a>
+            </Link>
           </div>
         </div>
       </div>

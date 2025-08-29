@@ -4,6 +4,9 @@ import { useState, useRef } from "react"
 import { motion, AnimatePresence, useInView } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {
   ArrowRight,
   ExternalLink,
@@ -25,6 +28,7 @@ import Footer from "@/components/footer"
 export default function PortfolioPage() {
   const [activeFilter, setActiveFilter] = useState("All")
   const [selectedProject, setSelectedProject] = useState<any>(null)
+  const [showMobileForm, setShowMobileForm] = useState(false)
   const heroRef = useRef(null)
   const isHeroInView = useInView(heroRef, { once: true })
 
@@ -477,6 +481,7 @@ export default function PortfolioPage() {
             <Button
               size="lg"
               className="bg-white text-[#2CA35B] hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all"
+              onClick={() => setShowMobileForm(true)}
             >
               Get Started Today
               <ArrowRight className="ml-2 w-6 h-6" />
@@ -484,6 +489,63 @@ export default function PortfolioPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Mobile Form Modal */}
+      <AnimatePresence>
+        {showMobileForm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+            onClick={() => setShowMobileForm(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white rounded-3xl p-6 w-full max-w-md max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="text-2xl font-bold">Get Free Consultation</h3>
+                  <p className="text-gray-600">Response within 24 hours</p>
+                </div>
+                <Button variant="ghost" size="sm" onClick={() => setShowMobileForm(false)}>
+                  <X className="w-6 h-6" />
+                </Button>
+              </div>
+
+              <div className="space-y-4">
+                <Input placeholder="Your Name" className="h-12 rounded-xl" />
+                <Input placeholder="Email Address" type="email" className="h-12 rounded-xl" />
+                <Textarea placeholder="Tell us about your project..." rows={3} className="rounded-xl" />
+                <Select>
+                  <SelectTrigger className="h-12 rounded-xl">
+                    <SelectValue placeholder="Service Needed" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="ui-ux">UI/UX Design</SelectItem>
+                    <SelectItem value="website">Website Development</SelectItem>
+                    <SelectItem value="app">FlutterFlow App</SelectItem>
+                    <SelectItem value="graphic">Graphic Design</SelectItem>
+                    <SelectItem value="all">Complete Solution</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Button className="w-full bg-[#2CA35B] hover:bg-[#1E6F5C] text-white py-3 rounded-xl font-semibold">
+                  Submit Request
+                </Button>
+
+                <p className="text-xs text-gray-500 text-center">
+                  Free consultation • Custom proposal • No commitment required
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Footer */}
       <Footer />

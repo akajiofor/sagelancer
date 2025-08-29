@@ -393,17 +393,14 @@ export default function SagelancerLanding() {
 
                   <motion.h1
                     className="text-6xl md:text-8xl lg:text-9xl font-bold leading-none font-space-grotesk relative z-10"
-                    animate={{
-                      background: [
-                        "linear-gradient(45deg, #2CA35B, #1E6F5C)",
-                        "linear-gradient(45deg, #1E6F5C, #2CA35B)",
-                        "linear-gradient(45deg, #2CA35B, #1E6F5C)",
-                      ],
-                    }}
-                    transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY }}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, delay: 0.5 }}
                     style={{
+                      background: "linear-gradient(45deg, #2CA35B, #1E6F5C)",
                       backgroundClip: "text",
                       WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
                       color: "transparent",
                     }}
                   >
@@ -455,7 +452,7 @@ export default function SagelancerLanding() {
               </div>
 
               {/* Enhanced Subheadline */}
-              <motion.p
+              <motion.div
                 className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed mt-8"
                 initial={{ opacity: 0, y: 30 }}
                 animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
@@ -492,7 +489,7 @@ export default function SagelancerLanding() {
                   />
                 </motion.span>{" "}
                 — all without writing a single line of traditional code.
-              </motion.p>
+              </motion.div>
 
               {/* Enhanced CTA Buttons */}
               <motion.div

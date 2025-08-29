@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence, useInView } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -59,6 +59,8 @@ export default function ProcessPage() {
   const [showProcessDemo, setShowProcessDemo] = useState(false)
   const [currentDemoStep, setCurrentDemoStep] = useState(0)
   const [demoProgress, setDemoProgress] = useState(0)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [autoPlaySpeed, setAutoPlaySpeed] = useState(4000) // 4 seconds per step
 
   const processSteps = [
     {
@@ -197,6 +199,33 @@ export default function ProcessPage() {
     },
   ]
 
+  // Auto-progression effect
+  useEffect(() => {
+    if (!showProcessDemo || !isAutoPlaying) return
+
+    const timer = setTimeout(() => {
+      if (currentDemoStep < processSteps.length - 1) {
+        setCurrentDemoStep(currentDemoStep + 1)
+        setDemoProgress(((currentDemoStep + 1) / (processSteps.length - 1)) * 100)
+      } else {
+        // Reset to beginning when reaching the end
+        setCurrentDemoStep(0)
+        setDemoProgress(0)
+      }
+    }, autoPlaySpeed)
+
+    return () => clearTimeout(timer)
+  }, [currentDemoStep, showProcessDemo, isAutoPlaying, autoPlaySpeed, processSteps.length])
+
+  // Reset demo when modal opens
+  useEffect(() => {
+    if (showProcessDemo) {
+      setCurrentDemoStep(0)
+      setDemoProgress(0)
+      setIsAutoPlaying(true)
+    }
+  }, [showProcessDemo])
+
   const benefits = [
     {
       icon: "Zap",
@@ -316,15 +345,15 @@ export default function ProcessPage() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden"
+              className="bg-white rounded-3xl max-w-4xl w-full max-h-[95vh] overflow-hidden flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Demo Header */}
-              <div className="bg-gradient-to-r from-[#2CA35B] to-[#1E6F5C] text-white p-6">
+              <div className="bg-gradient-to-r from-[#2CA35B] to-[#1E6F5C] text-white p-4 md:p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-2xl font-bold">Process in Action</h3>
-                    <p className="opacity-90">Watch how we transform your idea into reality</p>
+                    <h3 className="text-xl md:text-2xl font-bold">Process in Action</h3>
+                    <p className="opacity-90 text-sm md:text-base">Watch how we transform your idea into reality</p>
                   </div>
                   <Button
                     variant="ghost"
@@ -356,7 +385,7 @@ export default function ProcessPage() {
               </div>
 
               {/* Demo Content */}
-              <div className="p-8">
+              <div className="p-4 md:p-8 flex-1 overflow-y-auto">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentDemoStep}
@@ -365,7 +394,7 @@ export default function ProcessPage() {
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <div className="grid lg:grid-cols-2 gap-8 items-center">
+                    <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-start">
                       {/* Step Info */}
                       <div>
                         <div className="flex items-center space-x-4 mb-6">
@@ -535,7 +564,7 @@ export default function ProcessPage() {
                 </AnimatePresence>
 
                 {/* Demo Controls */}
-                <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 pt-6 border-t border-gray-200">
                   <Button
                     variant="outline"
                     onClick={() => {
@@ -545,25 +574,43 @@ export default function ProcessPage() {
                       }
                     }}
                     disabled={currentDemoStep === 0}
-                    className="flex items-center space-x-2"
+                    className="flex items-center space-x-2 text-sm px-3 py-2"
                   >
                     <ArrowRight className="w-4 h-4 rotate-180" />
-                    <span>Previous</span>
+                    <span className="hidden sm:inline">Previous</span>
                   </Button>
 
-                  <div className="flex space-x-2">
-                    {processSteps.map((_, index) => (
+                  <div className="flex flex-col sm:flex-row items-center gap-4">
+                    {/* Auto-play controls */}
+                    <div className="flex items-center space-x-2">
                       <button
-                        key={index}
-                        onClick={() => {
-                          setCurrentDemoStep(index)
-                          setDemoProgress((index / (processSteps.length - 1)) * 100)
-                        }}
-                        className={`w-3 h-3 rounded-full transition-all ${
-                          currentDemoStep === index ? "bg-[#2CA35B] scale-125" : "bg-gray-300 hover:bg-gray-400"
+                        onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                        className={`flex items-center space-x-2 px-3 py-1 rounded-full text-sm transition-all ${
+                          isAutoPlaying 
+                            ? "bg-[#2CA35B] text-white" 
+                            : "bg-gray-200 text-gray-600 hover:bg-gray-300"
                         }`}
-                      />
-                    ))}
+                      >
+                        <Play className={`w-3 h-3 ${isAutoPlaying ? 'hidden' : 'block'}`} />
+                        <span className="hidden sm:inline">{isAutoPlaying ? 'Auto-playing' : 'Play'}</span>
+                      </button>
+                    </div>
+
+                    {/* Step indicators */}
+                    <div className="flex space-x-2">
+                      {processSteps.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => {
+                            setCurrentDemoStep(index)
+                            setDemoProgress((index / (processSteps.length - 1)) * 100)
+                          }}
+                          className={`w-3 h-3 rounded-full transition-all ${
+                            currentDemoStep === index ? "bg-[#2CA35B] scale-125" : "bg-gray-300 hover:bg-gray-400"
+                          }`}
+                        />
+                      ))}
+                    </div>
                   </div>
 
                   <Button
@@ -575,7 +622,7 @@ export default function ProcessPage() {
                         setShowProcessDemo(false)
                       }
                     }}
-                    className="bg-[#2CA35B] hover:bg-[#1E6F5C] text-white flex items-center space-x-2"
+                    className="bg-[#2CA35B] hover:bg-[#1E6F5C] text-white flex items-center space-x-2 text-sm px-4 py-2"
                   >
                     <span>{currentDemoStep === processSteps.length - 1 ? "Finish" : "Next"}</span>
                     {currentDemoStep !== processSteps.length - 1 && <ArrowRight className="w-4 h-4" />}
